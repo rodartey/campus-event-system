@@ -1,0 +1,18 @@
+<h1>{{ event.title }}</h1>
+<p>{{ event.description }}</p>
+<p><strong>When:</strong> {{ event.start_time }} – {{ event.end_time }}</p>
+<p><strong>Venue:</strong> {{ event.venue.name }}</p>
+<p><strong>Organizer:</strong> {{ event.organizer }}</p>
+<p><strong>Status:</strong> {{ event.get_status_display }}</p>
+
+<h2>RSVP</h2>
+{% if existing_rsvp %}
+  <p>Your current response: <strong>{{ existing_rsvp.get_response_display }}</strong></p>
+{% endif %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save RSVP</button>
+</form>
+
+<a href="{% url 'event_list' %}">Back to all events</a>
